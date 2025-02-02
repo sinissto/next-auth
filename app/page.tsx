@@ -1,3 +1,9 @@
+import { Button } from "@/components/ui/button";
+
 export default function Home() {
-  return <p>Hello Auth</p>;
+  return (
+    <Button size={"lg"} variant={"outline"}>
+      Click me
+    </Button>
+  );
 }
