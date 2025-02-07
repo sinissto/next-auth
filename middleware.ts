@@ -9,6 +9,8 @@ import {
 
 const { auth } = NextAuth(authConfig);
 
+class AppRouteHandlerFnContext {}
+
 export default auth((req) => {
   const { nextUrl } = req;
   const isLoggedIn = !!req.auth;

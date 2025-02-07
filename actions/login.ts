@@ -24,6 +24,7 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
 
     return { success: "Successfully logged in" };
   } catch (error: any) {
+    console.log(error);
     if (error.type === "CredentialsSignin") {
       switch (error.type) {
         case "CredentialsSignin":
