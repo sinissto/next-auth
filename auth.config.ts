@@ -3,10 +3,20 @@ import Credentials from "next-auth/providers/credentials"
 import {LoginSchema} from "@/schemas";
 import {getUserByEmail} from "@/data/user";
 import bcrypt from "bcryptjs";
+import GitHub from "@auth/core/providers/github";
+import Google from "@auth/core/providers/google";
 
 // Notice this is only an object, not a full Auth.js instance
 export default {
     providers: [
+        Google({
+            clientId: process.env.GOOGLE_CLIENT_ID,
+            clientSecret:process.env.GOOGLE_CLIENT_SECRET
+        }),
+        GitHub({
+            clientId: process.env.GITHUB_CLIENT_ID,
+            clientSecret:process.env.GITHUB_CLIENT_SECRET
+        }),
         Credentials({
         authorize: async (credentials) => {
             const validatedFields = LoginSchema.safeParse(credentials)
@@ -24,6 +34,7 @@ export default {
             }
             return null
         },
-        })
+        }),
+
     ],
 } satisfies NextAuthConfig

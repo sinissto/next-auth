@@ -19,6 +19,7 @@ import FormError from "@/components/FormError";
 import FormSuccess from "@/components/FormSuccess";
 import { login } from "@/actions/login";
 import { useState, useTransition } from "react";
+import { useSearchParams } from "next/navigation";
 
 function LoginForm() {
   const [error, setError] = useState<string | undefined>("");
@@ -31,6 +32,11 @@ function LoginForm() {
       password: "password",
     },
   });
+  const searchParams = useSearchParams();
+  const urlError =
+    searchParams.get("error") === "OAuthAccountNotLinked"
+      ? "Email already in use with different provider"
+      : "";
 
   const onSubmit = (values: z.infer<typeof LoginSchema>) => {
     setError("");
@@ -90,7 +96,7 @@ function LoginForm() {
               )}
             ></FormField>
           </div>
-          <FormError message={error} />
+          <FormError message={error || urlError} />
           <FormSuccess message={success} />
           <Button type={"submit"} className={"w-full"} disabled={isPending}>
             Login
