@@ -1,4 +1,5 @@
 import { Resend } from "resend";
+import { reset } from "next/dist/lib/picocolors";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -10,5 +11,16 @@ export const sendVerificationEmail = async (email: string, token: string) => {
     to: email,
     subject: "Confirm your email",
     html: `<p>Click <a href=${confirmLink}>here</a> to confirm email</p>`,
+  });
+};
+
+export const sendPasswordResetEmail = async (email: string, token: string) => {
+  const resetLink = `http://localhost:3000/auth/newPassword?token=${token}`;
+
+  await resend.emails.send({
+    from: "onboarding@resend.dev",
+    to: email,
+    subject: "Reset your password",
+    html: `<p>Click <a href=${resetLink}>here</a> to reset your password</p>`,
   });
 };
