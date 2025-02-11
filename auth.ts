@@ -29,10 +29,12 @@ export const {
       // 1. Allow OAuth without email verification
       if (account?.provider !== "credentials") return true;
 
-      const existingUser = await getUserById(user?.id);
+      if (user.id) {
+        const existingUser = await getUserById(user.id);
 
-      // Prevent sign in without email verification
-      if (!existingUser?.emailVerified) return false;
+        // Prevent sign in without email verification
+        if (!existingUser?.emailVerified) return false;
+      }
 
       return true;
     },
