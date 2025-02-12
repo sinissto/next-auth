@@ -45,6 +45,9 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
 
     return { success: "Successfully logged in" };
   } catch (error: any) {
+    console.log("*********************************");
+    console.log("******* GRESKA IZ login.ts ******");
+    console.log("*********************************");
     console.log(error);
     if (error.type === "CredentialsSignin") {
       switch (error.type) {
@@ -54,6 +57,9 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
           return { error: "Something went wrong" };
       }
     }
+
+    if (error.type === "AccessDenied")
+      return { error: "Access Denied! Something went wrong!" };
 
     throw error;
   }
