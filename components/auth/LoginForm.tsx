@@ -29,8 +29,8 @@ function LoginForm() {
   const form = useForm<z.infer<typeof LoginSchema>>({
     resolver: zodResolver(LoginSchema),
     defaultValues: {
-      email: "demo@user.com",
-      password: "password",
+      email: "sinisha.stojanovic@gmail.com",
+      password: "guresha34",
     },
   });
   const searchParams = useSearchParams();
