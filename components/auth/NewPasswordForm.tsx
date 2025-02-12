@@ -18,16 +18,20 @@ import { Button } from "@/components/ui/button";
 import FormError from "@/components/FormError";
 import FormSuccess from "@/components/FormSuccess";
 import { useState, useTransition } from "react";
-import { resetPassword } from "@/actions/resetPassword";
+import { reset } from "@/actions/reset";
+import { useSearchParams } from "next/navigation";
+import { newPassword } from "@/actions/newPassword";
 
-function ResetPasswordForm() {
+function NewPasswordFormForm() {
+  const searchParams = useSearchParams();
+  const token = searchParams.get("token");
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
   const [isPending, startTransition] = useTransition();
   const form = useForm<z.infer<typeof ResetPasswordSchema>>({
     resolver: zodResolver(ResetPasswordSchema),
     defaultValues: {
-      email: "demo@user.com",
+      password: "",
     },
   });
 
@@ -36,7 +40,7 @@ function ResetPasswordForm() {
     setSuccess("");
 
     startTransition(() => {
-      resetPassword(values).then((data) => {
+      newPassword(values, token).then((data) => {
         setError(data?.error);
         setSuccess(data?.success);
       });
@@ -45,7 +49,7 @@ function ResetPasswordForm() {
 
   return (
     <CardWrapper
-      headerLabel={"Forgot your password"}
+      headerLabel={"Create new password"}
       backButtonLabel={"Back to login"}
       backButtonHref={"/auth/login"}
     >
@@ -54,15 +58,15 @@ function ResetPasswordForm() {
           <div className={"space-y-4"}>
             <FormField
               control={form.control}
-              name={"email"}
+              name={"password"}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel>Password</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
-                      placeholder={"Your email"}
-                      type={"email"}
+                      type={"password"}
+                      placeholder={"********"}
                       disabled={isPending}
                     />
                   </FormControl>
@@ -74,7 +78,7 @@ function ResetPasswordForm() {
           <FormError message={error} />
           <FormSuccess message={success} />
           <Button type={"submit"} className={"w-full"} disabled={isPending}>
-            Send reset email
+            Reset password
           </Button>
         </form>
       </Form>
@@ -82,4 +86,4 @@ function ResetPasswordForm() {
   );
 }
 
-export default ResetPasswordForm;
+export default NewPasswordFormForm;
