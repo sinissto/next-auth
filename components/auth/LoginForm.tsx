@@ -32,6 +32,7 @@ function LoginForm() {
     defaultValues: {
       email: "sinisha.stojanovic@gmail.com",
       password: "guresha34",
+      code: "",
     },
   });
   const searchParams = useSearchParams();
