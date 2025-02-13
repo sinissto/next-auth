@@ -5,5 +5,5 @@ export const useCurrentUser = () => {
 
   if (session.data) return session.data.user;
 
-  return null;
+  return undefined;
 };
