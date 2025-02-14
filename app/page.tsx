@@ -27,10 +27,17 @@ export default function Home() {
         <p className={"text-white text-lg"}>A simple authentication service</p>
 
         <div>
-          <LoginButton>
+          <LoginButton mode={"modal"} asChild>
             <Button variant={"secondary"} size={"lg"}>
               Sign in
             </Button>
+            {/*<span*/}
+            {/*  className={*/}
+            {/*    "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80 h-10 rounded-md px-8 flex items-center"*/}
+            {/*  }*/}
+            {/*>*/}
+            {/*  Sign in*/}
+            {/*</span>*/}
           </LoginButton>
         </div>
       </div>
