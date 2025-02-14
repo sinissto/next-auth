@@ -1,6 +1,5 @@
 "use server";
 
-import { useCurrentRole } from "@/hooks/useCurrentRole";
 import { UserRole } from "@prisma/client";
 import { currentRole } from "@/lib/auth";
 
