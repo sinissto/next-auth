@@ -56,6 +56,8 @@ const SettingsPage = () => {
     startTransition(() => {
       settings(values)
         .then((data) => {
+          setError("");
+          setSuccess("");
           if (data.error) {
             setError(data.error);
             toast.error(data.error);
@@ -98,68 +100,72 @@ const SettingsPage = () => {
               />
             </div>
 
-            <div>
-              <FormField
-                control={form.control}
-                name={"email"}
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Email</FormLabel>
-                    <FormControl>
-                      <Input
-                        {...field}
-                        placeholder={"your email"}
-                        disabled={isPending}
-                        type={"email"}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
+            {user?.isOAuth === false && (
+              <>
+                <div>
+                  <FormField
+                    control={form.control}
+                    name={"email"}
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Email</FormLabel>
+                        <FormControl>
+                          <Input
+                            {...field}
+                            placeholder={"your email"}
+                            disabled={isPending}
+                            type={"email"}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
 
-            <div>
-              <FormField
-                control={form.control}
-                name={"password"}
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Password</FormLabel>
-                    <FormControl>
-                      <Input
-                        {...field}
-                        placeholder={"*********"}
-                        disabled={isPending}
-                        type={"password"}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
+                <div>
+                  <FormField
+                    control={form.control}
+                    name={"password"}
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Password</FormLabel>
+                        <FormControl>
+                          <Input
+                            {...field}
+                            placeholder={"*********"}
+                            disabled={isPending}
+                            type={"password"}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
 
-            <div>
-              <FormField
-                control={form.control}
-                name={"newPassword"}
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Confirm Password</FormLabel>
-                    <FormControl>
-                      <Input
-                        {...field}
-                        placeholder={"*********"}
-                        disabled={isPending}
-                        type={"password"}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
+                <div>
+                  <FormField
+                    control={form.control}
+                    name={"newPassword"}
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>New Password</FormLabel>
+                        <FormControl>
+                          <Input
+                            {...field}
+                            placeholder={"*********"}
+                            disabled={isPending}
+                            type={"password"}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+              </>
+            )}
 
             <div>
               <FormField
@@ -189,34 +195,36 @@ const SettingsPage = () => {
               />
             </div>
 
-            <div>
-              <FormField
-                control={form.control}
-                name={"isTwoFactorEnabled"}
-                render={({ field }) => (
-                  <FormItem
-                    className={
-                      "flex flex-row items-center justify-between rounded-lg border p-3 shadow-md"
-                    }
-                  >
-                    <div className={"space-y-0.5"}>
-                      <FormLabel>Two Factor Auth</FormLabel>
-                      <FormDescription>
-                        Enable 2FA for your account
-                      </FormDescription>
-                    </div>
-                    <FormControl>
-                      <Switch
-                        disabled={isPending}
-                        checked={field.value}
-                        onCheckedChange={field.onChange}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
+            {user?.isOAuth === false && (
+              <div>
+                <FormField
+                  control={form.control}
+                  name={"isTwoFactorEnabled"}
+                  render={({ field }) => (
+                    <FormItem
+                      className={
+                        "flex flex-row items-center justify-between rounded-lg border p-3 shadow-md"
+                      }
+                    >
+                      <div className={"space-y-0.5"}>
+                        <FormLabel>Two Factor Auth</FormLabel>
+                        <FormDescription>
+                          Enable 2FA for your account
+                        </FormDescription>
+                      </div>
+                      <FormControl>
+                        <Switch
+                          disabled={isPending}
+                          checked={field.value}
+                          onCheckedChange={field.onChange}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+            )}
 
             <FormError message={error} />
             <FormSuccess message={success} />

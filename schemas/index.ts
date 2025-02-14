@@ -12,7 +12,7 @@ export const SettingsSchema = z
   })
   .refine(
     (data) => {
-      if (data.password && data.newPassword) {
+      if (data.password && !data.newPassword) {
         return false;
       }
 
@@ -31,7 +31,7 @@ export const SettingsSchema = z
     },
     {
       message: "Password is required",
-      path: ["newPassword"],
+      path: ["password"],
     }
   );
 
